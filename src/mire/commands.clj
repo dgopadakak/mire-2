@@ -89,10 +89,10 @@
 
       (room-contains? @*current-room* thing)
         (case thing
-          "arrows" (do
-            (.set player/*arrows* (+ (.get player/*arrows*) 5))
+          "mana" (do
+            (.set player/*mana* (+ (.get player/*mana*) 5))
             (move-delete (keyword thing) (:items @*current-room*))
-            (println "You picked up arrows.")
+            (println "You picked up mana.")
             )
             (do
               (move-between-refs (keyword thing)
@@ -172,7 +172,7 @@
   []
   (str "You are carrying:\r\n"
        (join "\r\n" (seq @*inventory*))
-       "\nYou have " (.get player/*arrows*) " arrows."
+       "\nYou have " (.get player/*mana*) " mana."
   )
 )
 
@@ -231,26 +231,26 @@
   )
 )
 
-(defn shoot
-  "Shoot another player"
+(defn wave
+  "Wave another player"
   [target]
   (dosync
-    (if (player/carrying? :bow)
-      (if (> (.get player/*arrows*) 0)
+    (if (player/carrying? :wand)
+      (if (> (.get player/*mana*) 0)
         (if (contains? @health target)
           (if (contains? @(:inhabitants @*current-room*) target)
             (do
               (commute health assoc target (- (@health target) 50))
-              (.set player/*arrows* (- (.get player/*arrows*) 1))
+              (.set player/*mana* (- (.get player/*mana*) 1))
               "Great shot!"
             )
             "No such target in the room."
           )
           "Target doesn't exist."
         )
-        "You don't have arrows."
+        "You don't have mana."
       )
-      "You don't have a bow."
+      "You don't have a wand."
     )
   )
 )
@@ -276,7 +276,7 @@
                "players" players
                "help" help
                "attack" attack
-               "shoot" shoot
+               "wave" wave
                })
 
 ;; Command handling

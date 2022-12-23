@@ -3,5 +3,5 @@
  :gold {:coin 2 :bagmoney 1 :treasuregold 1}
  :loot {:sword 2}
  :trash {:coin 2 :bagmoney 1 :treasuregold 1}
- :items #{:bow :arrows}
+ :items #{:wand :mana}
  }

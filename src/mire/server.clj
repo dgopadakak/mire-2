@@ -42,7 +42,7 @@
        (commute player/health assoc player/*name* 100)
        (commute player/score assoc player/*name* 0)
        (commute player/lives assoc player/*name* "live"))
-       (.set player/*arrows* 0)
+       (.set player/*mana* 0)
       (println (commands/look)) (print player/prompt) (flush)
 
       (try (loop [input (read-line)]
